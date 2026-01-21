@@ -39,4 +39,4 @@ if __name__ == '__main__':
         if i != len(mecna_names) - 1:
             doc_final.add_page_break()
 
-    doc_final.save("documento_mecna.docx")
+    doc_final.save("files/documento_mecna.docx")
