@@ -7,7 +7,7 @@ import docx2pdf
 
 
 def funcionConDocx(lista_socios):
-    doc = Document('files/Ziurtagiria2.docx')
+    doc = Document('input/Ziurtagiria2.docx')
 
     lista_socios = lista_socios.to_dict(orient="records")
     for idx, socio in enumerate(lista_socios):
@@ -51,7 +51,7 @@ def funcionConDocx(lista_socios):
                             for p in cell.paragraphs:
                                 if p.text.find(word) >= 0:
                                     p.text = p.text.replace(word, replace_word[word])
-        doc.save(f'files/{socio["Izena"]}_MECNA.docx')
+        doc.save(f'output/{socio["Izena"]}_MECNA.docx')
 
 
 def funcionConDocxtpl(df):
@@ -59,8 +59,8 @@ def funcionConDocxtpl(df):
     socios = df.to_dict(orient="records")
 
     # Cargar plantilla
-    doc = DocxTemplate("files/Ziurtagiria1.docx")
-    # doc = DocxTemplate("files/Prueba1.docx")
+    doc = DocxTemplate("input/Ziurtagiria1.docx")
+    # doc = DocxTemplate("input/Prueba1.docx")
 
     # Renderizar
     doc.render({
@@ -70,13 +70,13 @@ def funcionConDocxtpl(df):
     })
 
     # guardar resultado
-    doc.save("files/Ziurtagiriak_MECNA.docx")
+    doc.save("output/Ziurtagiriak_MECNA.docx")
 
     return doc
 
 
 if __name__ == '__main__':
-    mecna_names = pd.read_excel("files/MECNA.xlsx", usecols="A:D", header=0, index_col=None,
+    mecna_names = pd.read_excel("input/MECNA.xlsx", usecols="A:D", header=0, index_col=None,
                                 sheet_name="2025 (uztailetik)")
 
     mecna_names = mecna_names.rename(columns={"NAN zkia": "NAN_zkia"})
@@ -84,6 +84,6 @@ if __name__ == '__main__':
     doc = funcionConDocx(mecna_names)
 
     # Convertir a pdf
-    # convert("files/Ziurtagiriak_MECNA.docx", "files/Ziurtagiria_MECNA.pdf")
+    # convert("output/Ziurtagiriak_MECNA.docx", "input/Ziurtagiria_MECNA.pdf")
 
     exit()
