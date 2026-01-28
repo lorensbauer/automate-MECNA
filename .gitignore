@@ -3,6 +3,7 @@
 input
 output
 *.secrets
+*.p12
 #Byte-compiled / optimized / DLL input
 __pycache__/
 *.py[codz]
