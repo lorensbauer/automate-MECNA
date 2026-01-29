@@ -7,41 +7,38 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 
-def send_email(subject, body, sender, recipients, password, pdf_path):
+def send_email(subject, body, sender, recipients, password, pdf, recipients_name, must_send=False):
     msg = MIMEMultipart()
-    msg['Subject'] = subject
-    msg['From'] = sender
-    msg['To'] = ', '.join(recipients)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = ", ".join(recipients)
 
     # Cuerpo del correo
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, "plain"))
 
-    # Adjuntar PDF
-    pdf_path = Path(pdf_path)
-
-    with open(pdf_path, "rb") as f:
-        part = MIMEBase("application", "pdf")
-        part.set_payload(f.read())
+    part = MIMEBase("application", "pdf")
+    part.set_payload(pdf)
 
     encoders.encode_base64(part)
-    part.add_header(
-        "Content-Disposition",
-        f'attachment; filename="{pdf_path.name}"'
-    )
+    part.add_header("Content-Disposition", f'attachment; filename=f"{recipients_name}.pdf"')
 
     msg.attach(part)
-
     # Envío
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-        smtp_server.login(sender, password)
-        smtp_server.sendmail(sender, recipients, msg.as_string())
+    if must_send:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp_server:
+            smtp_server.login(sender, password)
+            smtp_server.sendmail(sender, recipients, msg.as_string())
 
-    print("Message sent with attachment!")
+        print("Message sent with attachment!")
+    else:
+        print(f"Message to {recipients_name} not being sent!")
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     subject = "Email Subject"
     body = "This is the body of thetexmessage"
     sender = "99lotermin@gmail.com"
