@@ -56,5 +56,3 @@ if __name__ == "__main__":
             password = os.getenv("PASSWORD")
 
             send_email(subject, body, sender, recipients, password, pdf_signed_bytes, recipients_name)
-
-            break

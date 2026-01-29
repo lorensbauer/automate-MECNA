@@ -33,7 +33,7 @@ def send_email(subject, body, sender, recipients, password, pdf, recipients_name
             smtp_server.login(sender, password)
             smtp_server.sendmail(sender, recipients, msg.as_string())
 
-        print("Message sent with attachment!")
+        print(f"Message to {recipients_name} sent with attachment!")
     else:
         print(f"Message to {recipients_name} not being sent!")
 
