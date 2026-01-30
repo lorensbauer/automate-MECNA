@@ -24,7 +24,7 @@ def send_email(subject, body, sender, recipients, password, pdf, recipients_name
     part.set_payload(pdf)
 
     encoders.encode_base64(part)
-    part.add_header("Content-Disposition", f'attachment; filename=f"{recipients_name}.pdf"')
+    part.add_header("Content-Disposition", f'attachment; filename="{recipients_name}.pdf"')
 
     msg.attach(part)
     # Envío
@@ -35,7 +35,7 @@ def send_email(subject, body, sender, recipients, password, pdf, recipients_name
 
         print(f"Message to {recipients_name} sent with attachment!")
     else:
-        print(f"Message to {recipients_name} not being sent!")
+        print(f"Message to {recipients_name} ({recipients}) not being sent!")
 
 
 if __name__ == "__main__":

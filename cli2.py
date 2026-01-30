@@ -45,18 +45,17 @@ if __name__ == "__main__":
                     writer.write(out)
                 # Firmar documento
                 pdf = sign_pdf(tmpdir / "doc.pdf")
-                # Mandar por correo
-                # 4. Enviar por correo
+                # Enviar por correo
                 subject = "MECNA ziurtagiria"
                 sender = "99lotermin@gmail.com"
                 recipients = [mecna_names.loc[i, "Email"]]
                 recipients_name = f'{mecna_names.loc[i, "Izena"]} {mecna_names.loc[i, "Abizenak"]}'
                 body = (
                     f"Kaixo {recipients_name}\n"
-                    "Hemen duzue MECNA-ren ziurtagiria sinatuta. "
-                    "Mezu hau automatikoki sortu da, arazorik egotekotan idatzi hurrengo posta el"
+                    "Hemen duzu MECNA-ren ziurtagiria sinatuta. "
+                    "Mezu hau automatikoki sortu da, arazorik egotekotan idatz iezagouzu korreo bat mesedez\n"
+                    "Agur bero bat"
                 )
                 password = os.getenv("PASSWORD")
 
                 send_email(subject, body, sender, recipients, password, pdf, recipients_name)
-
